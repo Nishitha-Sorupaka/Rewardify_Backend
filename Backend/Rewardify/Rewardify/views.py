@@ -38,20 +38,45 @@ class LoginAPIView(APIView):
 
             response_data = {
                 "message": "Login successful",
-                "redirect_url": "",
                 "token": str(refresh.access_token),
+                "is_superuser": user.is_superuser,  
             }
-
-            # Redirect based on user role
-            if user.is_superuser:
-                response_data["redirect_url"] = "https://nishitha-sorupaka.github.io/Rewardify/adminhome.html"
-            elif user.is_authenticated:
-                response_data["redirect_url"] = "https://nishitha-sorupaka.github.io/Rewardify/userprofile.html"
-
 
             return JsonResponse(response_data, status=200)
         else:
             return JsonResponse({"error": "Invalid email or password"}, status=401)
+
+# class LoginAPIView(APIView):
+#     permission_classes = [AllowAny]
+
+#     def post(self, request, *args, **kwargs):
+#         email = request.data.get('email')
+#         password = request.data.get('password')
+
+#         # Validate input
+#         if not email or not password:
+#             return JsonResponse({"error": "Email and password are required"}, status=400)
+
+#         user = authenticate(username=email, password=password)
+
+#         if user is not None:
+#             refresh = RefreshToken.for_user(user)
+
+#             response_data = {
+#                 "message": "Login successful",
+#                 "redirect_url": "",
+#                 "token": str(refresh.access_token),
+#             }
+
+#             # Redirect based on user role
+#             if user.is_superuser:
+#                 response_data["redirect_url"] = "https://nishitha-sorupaka.github.io/Rewardify/adminhome.html"
+#             elif user.is_authenticated:
+#                 response_data["redirect_url"] = "https://nishitha-sorupaka.github.io/Rewardify/userprofile.html"
+
+#             return JsonResponse(response_data, status=200)
+#         else:
+#             return JsonResponse({"error": "Invalid email or password"}, status=401)
 
 User = get_user_model()
 
