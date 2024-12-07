@@ -1,0 +1,5 @@
+admins: superadmin
+pass: superadmin
+
+
+pip install djangorestframework-simplejwt
