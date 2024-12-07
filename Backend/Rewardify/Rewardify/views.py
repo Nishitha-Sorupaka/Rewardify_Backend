@@ -43,7 +43,7 @@ class LoginAPIView(APIView):
             }
 
             # Redirect based on user role
-             if user.is_superuser:
+            if user.is_superuser:
                 response_data["redirect_url"] = "https://nishitha-sorupaka.github.io/Rewardify/adminhome.html"
             elif user.is_authenticated:
                 response_data["redirect_url"] = "https://nishitha-sorupaka.github.io/Rewardify/userprofile.html"
